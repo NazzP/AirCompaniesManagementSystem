@@ -1,10 +1,8 @@
 package com.example.aircompaniesmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "aircompanies")
 public class AirCompany {
 
@@ -21,13 +20,18 @@ public class AirCompany {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", unique = true)
     private String name;
-    @Column(name = "company_type", nullable = false)
+    @Column(name = "company_type")
     private String companyType;
-    @Column(name = "founded_at", nullable = false)
-    private LocalDate FoundedAt;
+    @Column(name = "founded_at")
+    private LocalDate foundedAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "airCompany", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<Flight> flights;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "airCompany", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Airplane> airplanes;
 }

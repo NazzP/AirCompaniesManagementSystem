@@ -5,6 +5,7 @@ import com.example.aircompaniesmanagementsystem.dto.AirCompanyInfo;
 import com.example.aircompaniesmanagementsystem.dto.AirCompanyRequest;
 import com.example.aircompaniesmanagementsystem.dto.AirCompanyResponse;
 import com.example.aircompaniesmanagementsystem.entity.AirCompany;
+import com.example.aircompaniesmanagementsystem.entity.Flight;
 import com.example.aircompaniesmanagementsystem.repository.AirCompanyRepository;
 import com.example.aircompaniesmanagementsystem.service.AirCompanyService;
 import com.example.aircompaniesmanagementsystem.utils.AirCompanyUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AirCompanyServiceImpl implements AirCompanyService {
@@ -87,6 +89,18 @@ public class AirCompanyServiceImpl implements AirCompanyService {
     @Override
     public List<AirCompany> getAll() {
         return airCompanyRepository.findAll();
+    }
+
+    @Override
+    public List<Flight> findAllFlightsByStatus(String airCompanyName, String status) {
+        Optional<AirCompany> existingAirCompanyOptional = airCompanyRepository.findByName(airCompanyName);
+        AirCompany existingAirCompany = existingAirCompanyOptional.orElseThrow(
+                () -> new EntityNotFoundException()
+        );
+
+        return existingAirCompany.getFlights().stream()
+                .filter(flight ->  String.valueOf(flight.getFlightStatus()).equalsIgnoreCase(status))
+                .collect(Collectors.toList());
     }
 
 }

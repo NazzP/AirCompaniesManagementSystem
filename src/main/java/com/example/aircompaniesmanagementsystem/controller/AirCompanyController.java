@@ -39,4 +39,13 @@ public class AirCompanyController {
     public void delete(@PathVariable Long id){
         airCompanyService.delete(id);
     }
+
+    @GetMapping("/{airCompanyName}/flights/{status}")
+    public ResponseEntity<List<Flight>> findAllFlightsByStatus(
+            @PathVariable String airCompanyName,
+            @PathVariable String status) {
+
+        List<Flight> flights = airCompanyService.findAllFlightsByStatus(airCompanyName, status);
+        return new ResponseEntity<>(flights, HttpStatus.OK);
+    }
 }

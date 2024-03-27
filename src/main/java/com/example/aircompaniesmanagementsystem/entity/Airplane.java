@@ -1,10 +1,9 @@
 package com.example.aircompaniesmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "airplanes")
 public class Airplane {
 
@@ -27,9 +27,11 @@ public class Airplane {
 
     @ManyToOne
     @JoinColumn(name = "aircompany_id")
+    @JsonBackReference
     private AirCompany airCompany;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "airplane", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Flight> flights;
 
     @Column(name = "number_of_flights", nullable = false)

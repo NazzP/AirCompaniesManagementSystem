@@ -1,16 +1,19 @@
 package com.example.aircompaniesmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "flights")
 public class Flight {
 
@@ -24,10 +27,12 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "airplane_id")
+    @JsonBackReference
     private Airplane airplane;
 
     @ManyToOne
     @JoinColumn(name = "aircompany_id")
+    @JsonBackReference
     private AirCompany airCompany;
 
     @Column(name = "departure_country", nullable = false)
