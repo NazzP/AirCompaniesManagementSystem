@@ -21,7 +21,7 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "flight_status")
+    @Column(name = "flight_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status flightStatus;
 
@@ -31,7 +31,7 @@ public class Flight {
     private Airplane airplane;
 
     @ManyToOne
-    @JoinColumn(name = "aircompany_id")
+    @JoinColumn(name = "aircompany_id", nullable = false)
     @JsonBackReference
     private AirCompany airCompany;
 

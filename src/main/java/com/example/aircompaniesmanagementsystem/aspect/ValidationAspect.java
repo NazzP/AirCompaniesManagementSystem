@@ -1,6 +1,7 @@
 package com.example.aircompaniesmanagementsystem.aspect;
 
 import com.example.aircompaniesmanagementsystem.dto.response.AirCompanyResponse;
+import com.example.aircompaniesmanagementsystem.exception.NullEntityFieldException;
 import com.example.aircompaniesmanagementsystem.utils.ResponseUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,11 +23,7 @@ public class ValidationAspect {
             if (argument != null) {
                 boolean hasNullField = hasNullField(argument);
                 if (hasNullField) {
-                    return AirCompanyResponse.builder()
-                            .responseCode(ResponseUtils.AIRCOMPANY_NULL_ARGUMENT_CODE)
-                            .responseMessage(ResponseUtils.AIRCOMPANY_NULL_ARGUMENT_MESSAGE)
-                            .accountInfo(null)
-                            .build();
+                    throw new NullEntityFieldException();
                 }
             }
         }

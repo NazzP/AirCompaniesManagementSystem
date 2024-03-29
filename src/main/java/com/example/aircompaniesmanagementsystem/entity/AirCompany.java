@@ -22,9 +22,9 @@ public class AirCompany {
 
     @Column(name = "name", unique = true)
     private String name;
-    @Column(name = "company_type")
+    @Column(name = "company_type", nullable = false)
     private String companyType;
-    @Column(name = "founded_at")
+    @Column(name = "founded_at", nullable = false)
     private LocalDate foundedAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "airCompany", cascade = CascadeType.REMOVE)

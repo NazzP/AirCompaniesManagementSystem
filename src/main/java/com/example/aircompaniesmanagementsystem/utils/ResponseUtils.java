@@ -13,7 +13,7 @@ public class ResponseUtils {
     public static final String AIRPLANE_CREATION_SUCCESS_MESSAGE = "Airplane has been successfully created";
 
     public static final String AIRPLANE_EXISTS_CODE = "005";
-    public static final String AIRPLANE_EXISTS_MESSAGE = "Airplane with this name already exists";
+    public static final String AIRPLANE_EXISTS_MESSAGE = "Airplane with this SerialNumber already exists";
 
     public static final String AIRCOMPANY_NULL_ARGUMENT_CODE = "100";
     public static final String AIRCOMPANY_NULL_ARGUMENT_MESSAGE = "Check the fields - null argument / object";

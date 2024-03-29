@@ -68,7 +68,7 @@ public class AirCompanyServiceImpl implements AirCompanyService {
         Optional<AirCompany> existingAirCompanyOptional = airCompanyRepository.findByName(request.getName());
 
         AirCompany existingAirCompany = existingAirCompanyOptional.orElseThrow(
-                () -> new EntityNotFoundException()
+                () -> new EntityNotFoundException("Aircompany with name" +request.getName() +"doesn't exist")
         );
 
         existingAirCompany.setCompanyType(request.getCompanyType());
@@ -98,7 +98,7 @@ public class AirCompanyServiceImpl implements AirCompanyService {
     public List<Flight> findAllFlightsByStatus(String airCompanyName, String status) {
         Optional<AirCompany> existingAirCompanyOptional = airCompanyRepository.findByName(airCompanyName);
         AirCompany existingAirCompany = existingAirCompanyOptional.orElseThrow(
-                () -> new EntityNotFoundException()
+                () -> new EntityNotFoundException("Aircompany with name" +airCompanyName +"doesn't exist")
         );
 
         return existingAirCompany.getFlights().stream()

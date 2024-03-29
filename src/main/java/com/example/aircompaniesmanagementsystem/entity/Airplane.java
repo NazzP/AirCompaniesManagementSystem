@@ -23,10 +23,10 @@ public class Airplane {
     private Long id;
 
     @Column(name = "factory_serial_number", nullable = false)
-    private Long factorySerialNumber;
+    private String factorySerialNumber;
 
     @ManyToOne
-    @JoinColumn(name = "aircompany_id")
+    @JoinColumn(name = "aircompany_id", nullable = false)
     @JsonBackReference
     private AirCompany airCompany;
 
