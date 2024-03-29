@@ -1,7 +1,7 @@
 package com.example.aircompaniesmanagementsystem.controller;
 
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyRequest;
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyResponse;
+import com.example.aircompaniesmanagementsystem.dto.request.AirCompanyRequest;
+import com.example.aircompaniesmanagementsystem.dto.response.AirCompanyResponse;
 import com.example.aircompaniesmanagementsystem.entity.AirCompany;
 import com.example.aircompaniesmanagementsystem.entity.Flight;
 import com.example.aircompaniesmanagementsystem.service.AirCompanyService;

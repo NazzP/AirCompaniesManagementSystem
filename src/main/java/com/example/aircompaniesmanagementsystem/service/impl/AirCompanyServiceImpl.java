@@ -1,14 +1,14 @@
 package com.example.aircompaniesmanagementsystem.service.impl;
 
 import com.example.aircompaniesmanagementsystem.aspect.ToValidate;
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyInfo;
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyRequest;
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyResponse;
+import com.example.aircompaniesmanagementsystem.dto.info.AirCompanyInfo;
+import com.example.aircompaniesmanagementsystem.dto.request.AirCompanyRequest;
+import com.example.aircompaniesmanagementsystem.dto.response.AirCompanyResponse;
 import com.example.aircompaniesmanagementsystem.entity.AirCompany;
 import com.example.aircompaniesmanagementsystem.entity.Flight;
 import com.example.aircompaniesmanagementsystem.repository.AirCompanyRepository;
 import com.example.aircompaniesmanagementsystem.service.AirCompanyService;
-import com.example.aircompaniesmanagementsystem.utils.AirCompanyUtils;
+import com.example.aircompaniesmanagementsystem.utils.ResponseUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,6 +28,14 @@ public class AirCompanyServiceImpl implements AirCompanyService {
     @ToValidate
     public AirCompanyResponse create(AirCompanyRequest request) {
 
+        if (airCompanyRepository.existsByName(request.getName())){
+            return AirCompanyResponse.builder()
+                    .responseCode(ResponseUtils.AIRCOMPANY_EXISTS_CODE)
+                    .responseMessage(ResponseUtils.AIRCOMPANY_EXISTS_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+
         AirCompany newAirCompany = AirCompany.builder()
                 .name(request.getName())
                 .companyType(request.getCompanyType())
@@ -37,8 +45,8 @@ public class AirCompanyServiceImpl implements AirCompanyService {
         airCompanyRepository.save(newAirCompany);
 
         return AirCompanyResponse.builder()
-                .responseCode(AirCompanyUtils.AIRCOMPANY_CREATION_SUCCESSFULLY_CODE)
-                .responseMessage(AirCompanyUtils.AIRCOMPANY_CREATION_SUCCESS_MESSAGE)
+                .responseCode(ResponseUtils.AIRCOMPANY_CREATION_SUCCESSFULLY_CODE)
+                .responseMessage(ResponseUtils.AIRCOMPANY_CREATION_SUCCESS_MESSAGE)
                 .accountInfo(AirCompanyInfo.builder()
                         .name(newAirCompany.getName())
                         .companyType(newAirCompany.getCompanyType())
@@ -69,8 +77,8 @@ public class AirCompanyServiceImpl implements AirCompanyService {
         airCompanyRepository.save(existingAirCompany);
 
         return AirCompanyResponse.builder()
-                .responseCode(AirCompanyUtils.AIRCOMPANY_UPDATION_SUCCESSFULLY_CODE)
-                .responseMessage(AirCompanyUtils.AIRCOMPANY_UPDATION_SUCCESS_MESSAGE)
+                .responseCode(ResponseUtils.AIRCOMPANY_UPDATION_SUCCESSFULLY_CODE)
+                .responseMessage(ResponseUtils.AIRCOMPANY_UPDATION_SUCCESS_MESSAGE)
                 .accountInfo(AirCompanyInfo.builder()
                         .name(existingAirCompany.getName())
                         .companyType(existingAirCompany.getCompanyType())
@@ -84,11 +92,6 @@ public class AirCompanyServiceImpl implements AirCompanyService {
         Optional<AirCompany> airCompanyOptional = airCompanyRepository.findById(id);
         AirCompany existingAirCompany = airCompanyOptional.orElseThrow(EntityNotFoundException::new);
         airCompanyRepository.delete(existingAirCompany);
-    }
-
-    @Override
-    public List<AirCompany> getAll() {
-        return airCompanyRepository.findAll();
     }
 
     @Override

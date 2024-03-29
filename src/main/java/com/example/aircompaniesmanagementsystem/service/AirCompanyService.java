@@ -1,7 +1,7 @@
 package com.example.aircompaniesmanagementsystem.service;
 
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyRequest;
-import com.example.aircompaniesmanagementsystem.dto.AirCompanyResponse;
+import com.example.aircompaniesmanagementsystem.dto.request.AirCompanyRequest;
+import com.example.aircompaniesmanagementsystem.dto.response.AirCompanyResponse;
 import com.example.aircompaniesmanagementsystem.entity.AirCompany;
 import com.example.aircompaniesmanagementsystem.entity.Flight;
 
@@ -12,6 +12,5 @@ public interface AirCompanyService {
     AirCompany read(long id);
     AirCompanyResponse update(AirCompanyRequest request);
     void delete(long id);
-    List<AirCompany> getAll();
     List<Flight> findAllFlightsByStatus(String airCompanyName, String status);
 }

@@ -1,4 +1,4 @@
-package com.example.aircompaniesmanagementsystem.dto;
+package com.example.aircompaniesmanagementsystem.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
