@@ -26,7 +26,7 @@ public class Airplane {
     private String factorySerialNumber;
 
     @ManyToOne
-    @JoinColumn(name = "aircompany_id", nullable = false)
+    @JoinColumn(name = "aircompany_id")
     @JsonBackReference
     private AirCompany airCompany;
 
