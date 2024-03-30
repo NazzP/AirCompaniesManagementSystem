@@ -1,12 +1,12 @@
 package com.example.aircompaniesmanagementsystem.controller;
 
+import com.example.aircompaniesmanagementsystem.dto.request.FlightRequest;
+import com.example.aircompaniesmanagementsystem.dto.response.FlightResponse;
 import com.example.aircompaniesmanagementsystem.entity.Flight;
 import com.example.aircompaniesmanagementsystem.service.FlightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +23,10 @@ public class FlightController {
     public ResponseEntity<List<Flight>> findAllFlightsByStatus() {
         List<Flight> flights = flightService.findAllActiveFlightsStartedMoreThan24HoursAgo();
         return new ResponseEntity<>(flights, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public FlightResponse add(@RequestBody FlightRequest request){
+        return flightService.add(request);
     }
 }
