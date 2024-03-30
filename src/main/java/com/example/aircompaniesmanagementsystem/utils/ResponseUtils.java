@@ -10,6 +10,8 @@ public class ResponseUtils {
     public static final String AIRPLANE_CREATION_SUCCESS_MESSAGE = "Airplane has been successfully added";
     public static final String FLIGHT_CREATION_SUCCESSFULLY_CODE = "004";
     public static final String FLIGHT_CREATION_SUCCESS_MESSAGE = "Flight has been successfully added";
+    public static final String FLIGHT_STATUS_UPDATION_SUCCESSFULLY_CODE = "005";
+    public static final String FLIGHT_STATUS_UPDATION_SUCCESS_MESSAGE = "Flight's STATUS has been successfully updated";
 
     public static final String AIRCOMPANY_UPDATION_SUCCESSFULLY_CODE = "010";
     public static final String AIRCOMPANY_UPDATION_SUCCESS_MESSAGE = "Aircompany has been successfully updated";

@@ -7,6 +7,7 @@ import com.example.aircompaniesmanagementsystem.service.FlightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.aircompaniesmanagementsystem.entity.Status;
 
 import java.util.List;
 
@@ -26,7 +27,13 @@ public class FlightController {
     }
 
     @PostMapping("/add")
-    public FlightResponse add(@RequestBody FlightRequest request){
+    public FlightResponse add(@RequestBody FlightRequest request) {
         return flightService.add(request);
+    }
+
+    @PostMapping("/changeStatus")
+    public FlightResponse changeStatus(@RequestParam Long flightId,
+                                       @RequestParam String status) {
+        return flightService.changeStatus(flightId, status);
     }
 }

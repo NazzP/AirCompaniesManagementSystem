@@ -76,6 +76,57 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public FlightResponse changeStatus(Long id, String status) {
+        Flight existingFlight = flightRepository.findById(id).orElseThrow(
+                () -> new NullEntityReferenceException("Flight with id " + id + " is not found")
+        );
+
+        switch (status) {
+            case "DELAYED" :
+                existingFlight.setDelayStartedAt(LocalDateTime.now());
+                existingFlight.setFlightStatus(Status.DELAYED);
+                break;
+            case "ACTIVE":
+                existingFlight.setStartedAt(LocalDateTime.now());
+                existingFlight.setFlightStatus(Status.ACTIVE);
+                break;
+            case "COMPLETED":
+                existingFlight.setEndedAt(LocalDateTime.now());
+                existingFlight.setFlightStatus(Status.COMPLETED);
+                break;
+            case "PENDING":
+                existingFlight.setFlightStatus(Status.PENDING);
+                existingFlight.setEndedAt(null);
+                existingFlight.setEndedAt(null);
+                existingFlight.setDelayStartedAt(null);
+                break;
+            default:
+                throw  new IllegalArgumentException("Unknown status: " + status);
+        }
+
+        flightRepository.save(existingFlight);
+
+        return FlightResponse.builder()
+                .responseCode(ResponseUtils.FLIGHT_STATUS_UPDATION_SUCCESSFULLY_CODE)
+                .responseMessage(ResponseUtils.FLIGHT_STATUS_UPDATION_SUCCESS_MESSAGE)
+                .flightInfo(FlightInfo.builder()
+                        .airCompanyId(existingFlight.getAirCompany().getId())
+                        .airplaneId(existingFlight.getAirplane().getId())
+                        .departureCountry(existingFlight.getDepartureCountry())
+                        .destinationCountry(existingFlight.getDestinationCountry())
+                        .distance(existingFlight.getDistance())
+                        .estimatedFlightTime(existingFlight.getEstimatedFlightTime())
+                        .flightStatus(String.valueOf(existingFlight.getFlightStatus()))
+                        .startedAt(existingFlight.getStartedAt())
+                        .endedAt(existingFlight.getEndedAt())
+                        .delayStartedAt(existingFlight.getDelayStartedAt())
+                        .createdAt(existingFlight.getCreatedAt())
+                        .build())
+                .build();
+    }
+
+
+    @Override
     public List<Flight> findAllActiveFlightsStartedMoreThan24HoursAgo() {
         return flightRepository.findAllByStatus(Status.ACTIVE).stream()
                 .filter(flight -> flight.getStartedAt().isAfter(LocalDateTime.now().minusDays(1)))
