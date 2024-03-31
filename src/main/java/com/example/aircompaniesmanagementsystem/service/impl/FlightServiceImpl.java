@@ -76,32 +76,31 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public FlightResponse changeStatus(Long id, String status) {
-        Flight existingFlight = flightRepository.findById(id).orElseThrow(
-                () -> new NullEntityReferenceException("Flight with id " + id + " is not found")
+    public FlightResponse changeStatus(Long flightId, String status) {
+        Flight existingFlight = flightRepository.findById(flightId).orElseThrow(
+                () -> new NullEntityReferenceException("Flight with id " + flightId + " is not found")
         );
 
         switch (status) {
-            case "DELAYED" :
+            case "DELAYED" -> {
                 existingFlight.setDelayStartedAt(LocalDateTime.now());
                 existingFlight.setFlightStatus(Status.DELAYED);
-                break;
-            case "ACTIVE":
+            }
+            case "ACTIVE" -> {
                 existingFlight.setStartedAt(LocalDateTime.now());
                 existingFlight.setFlightStatus(Status.ACTIVE);
-                break;
-            case "COMPLETED":
+            }
+            case "COMPLETED" -> {
                 existingFlight.setEndedAt(LocalDateTime.now());
                 existingFlight.setFlightStatus(Status.COMPLETED);
-                break;
-            case "PENDING":
+            }
+            case "PENDING" -> {
                 existingFlight.setFlightStatus(Status.PENDING);
                 existingFlight.setEndedAt(null);
                 existingFlight.setEndedAt(null);
                 existingFlight.setDelayStartedAt(null);
-                break;
-            default:
-                throw  new IllegalArgumentException("Unknown status: " + status);
+            }
+            default -> throw new IllegalArgumentException("Unknown status: " + status);
         }
 
         flightRepository.save(existingFlight);
@@ -130,6 +129,16 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> findAllActiveFlightsStartedMoreThan24HoursAgo() {
         return flightRepository.findAllByStatus(Status.ACTIVE).stream()
                 .filter(flight -> flight.getStartedAt().isAfter(LocalDateTime.now().minusDays(1)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Flight> findFlightsWithCompletedStatusAndTimeDifferenceExceeded() {
+        List<Flight> completedFlights = flightRepository.findAllByStatus(Status.COMPLETED);
+        return completedFlights.stream()
+                .filter(flight -> flight.getEndedAt().isAfter(
+                        flight.getStartedAt().plusSeconds((long) (flight.getEstimatedFlightTime() * 3600))
+                ))
                 .collect(Collectors.toList());
     }
 }

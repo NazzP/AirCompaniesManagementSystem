@@ -20,12 +20,6 @@ public class FlightController {
         this.flightService = flightService;
     }
 
-    @GetMapping("/active-and-started-more-than-24-hours-ago")
-    public ResponseEntity<List<Flight>> findAllFlightsByStatus() {
-        List<Flight> flights = flightService.findAllActiveFlightsStartedMoreThan24HoursAgo();
-        return new ResponseEntity<>(flights, HttpStatus.OK);
-    }
-
     @PostMapping("/add")
     public FlightResponse add(@RequestBody FlightRequest request) {
         return flightService.add(request);
@@ -36,4 +30,17 @@ public class FlightController {
                                        @RequestParam String status) {
         return flightService.changeStatus(flightId, status);
     }
+
+    @GetMapping("/active-and-started-more-than-24-hours-ago")
+    public ResponseEntity<List<Flight>> findAllFlightsByStatus() {
+        List<Flight> flights = flightService.findAllActiveFlightsStartedMoreThan24HoursAgo();
+        return new ResponseEntity<>(flights, HttpStatus.OK);
+    }
+
+    @GetMapping("/completedFlightsWithTimeDifferenceExceeded")
+    public ResponseEntity<List<Flight>> getCompletedFlightsWithTimeDifferenceExceeded() {
+        List<Flight> flights = flightService.findFlightsWithCompletedStatusAndTimeDifferenceExceeded();
+        return new ResponseEntity<>(flights, HttpStatus.OK);
+    }
+
 }
