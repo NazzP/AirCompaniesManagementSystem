@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "0d403efc-7880-4a77-acba-145d867f622c",
+		"name": "AirCompanyManagmentSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28139622"
+	},
+	"item": [
+		{
+			"name": "create AirCompany",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"AirCompanyDemo\",\r\n    \"companyType\" : \"TypeDemo\",\r\n    \"foundedAt\" : \"2025-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/aircompany/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"aircompany",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read AirCompany by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/aircompany/read/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"aircompany",
+						"read",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update AirComapny",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"AirCompanyDemo\",\r\n    \"companyType\" : \"TypeUpdated\",\r\n    \"foundedAt\" : \"2025-02-02\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/aircompany/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"aircompany",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete AirCompany by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/aircompany/delete/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"aircompany",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find all Air Company Flights by status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/aircompany/AirCompany2/flights/DELAYED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"aircompany",
+						"AirCompany2",
+						"flights",
+						"DELAYED"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "move airplanes between companies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"airCompanyId\" : \"3\",\r\n    \"airPlaneId\" : \"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/airplane/reassign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"airplane",
+						"reassign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new Airplane",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"factorySerialNumber\" : \"1337389\",\r\n    \"airCompanyId\" : \"2\",\r\n    \"numberOfFlights\" : \"200\",\r\n    \"flightDistance\" : \"1000.0\",\r\n    \"fuelCapacity\" : \"200.0\",\r\n    \"type\" : \"Type10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/airplane/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"airplane",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find all Flights in ACTIVE status and started more than 24 hours ago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/flight/active-and-started-more-than-24-hours-ago",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"flight",
+						"active-and-started-more-than-24-hours-ago"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new Flight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"airplaneId\": 1,\r\n    \"airCompanyId\": 2,\r\n    \"departureCountry\": \"USA\",\r\n    \"destinationCountry\": \"Canada\",\r\n    \"distance\": 1500.0,\r\n    \"estimatedFlightTime\": 3.5,\r\n    \"startedAt\": \"2022-03-28T10:15:30\",\r\n    \"endedAt\": \"2022-03-28T14:30:00\",\r\n    \"delayStartedAt\": \"2022-03-28T15:00:00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/flight/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"flight",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change Flight status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/flight/changeStatus?flightId=3&status=DELAYED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"flight",
+						"changeStatus"
+					],
+					"query": [
+						{
+							"key": "flightId",
+							"value": "3"
+						},
+						{
+							"key": "status",
+							"value": "DELAYED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findFlightsWithCompletedStatusAndTimeDifferenceExceeded",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/flight/completedFlightsWithTimeDifferenceExceeded",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"flight",
+						"completedFlightsWithTimeDifferenceExceeded"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
